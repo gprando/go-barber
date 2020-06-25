@@ -124,6 +124,9 @@ psd
 thumb
 sketch
 
+tmp/*
+!tmp/.gitkeep
+
 ### ReactNative ###
 # React Native Stack Base
 
