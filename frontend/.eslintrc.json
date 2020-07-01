@@ -29,6 +29,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "no-unused-vars": "warn",
       "react/jsx-props-no-spreading": "off",
       "react/prop-types": "off",
       "prettier/prettier": "error",
