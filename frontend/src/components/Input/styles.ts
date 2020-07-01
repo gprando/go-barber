@@ -16,7 +16,6 @@ export const Container = styled.div<ContainerProps>`
   width: 100%;
   color: #666360;
   display:flex;
-  /* //TODO ver aqui */
 
   & + div {
     margin-top: 8px;
