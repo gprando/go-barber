@@ -4,7 +4,6 @@ export const Container = styled.div`
   position: relative;
 
   span {
-    width: 160px;
     background: #ff9000;
     padding: 8px;
     border-radius: 4px;
@@ -16,6 +15,7 @@ export const Container = styled.div`
 
     position: absolute;
     bottom: calc(100%+12px);
+    width: 160px;
     left: 50%;
     transform: translateX(-50%);
 
