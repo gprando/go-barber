@@ -15,7 +15,6 @@ import { Container, Background, Content } from './styles';
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  // eslint-disable-next-line @typescript-eslint/ban-types
   const handleSubmit = useCallback(async (data: object) => {
     formRef.current?.setErrors({});
     try {
@@ -31,8 +30,6 @@ const SignUp: React.FC = () => {
         abortEarly: false,
       });
     } catch (error) {
-      console.log(error);
-
       const errors = getValidationErrors(error);
 
       formRef.current?.setErrors(errors);
