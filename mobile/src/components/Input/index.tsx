@@ -1,9 +1,7 @@
 import React from 'react';
 import { TextInputProperties } from 'react-native';
 
-import Icon from 'react-native-vector-icons/Feather';
-
-import { Container, TextInput } from './styles';
+import { Container, TextInput, Icon } from './styles';
 
 interface InputProps extends TextInputProperties {
   name: string;
@@ -12,7 +10,7 @@ interface InputProps extends TextInputProperties {
 
 const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => (
   <Container>
-    <Icon name="mail" size={20} color="#666360" />
+    <Icon name={icon} size={20} color="#666360" />
 
     <TextInput
       keyboardAppearance="dark"
