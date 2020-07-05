@@ -30,8 +30,8 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
 ) => {
   const inputElementRef = useRef<any>(null);
 
-  const { fieldName, registerField, defaultValue = '', error 
-} = useField(name);
+  // eslint-disable-next-line object-curly-newline
+  const { fieldName, registerField, defaultValue = '', error } = useField(name);
 
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
   const [isFocused, setIsFocused] = useState(false);
@@ -58,6 +58,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
       name: fieldName,
       ref: inputValueRef.current,
       path: 'value',
+      // eslint-disable-next-line no-shadow
       setValue(ref: any, value) {
         inputValueRef.current.value = value;
         inputElementRef.current.setNativeProps({ text: value });
@@ -70,11 +71,11 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
   }, [fieldName, registerField]);
 
   return (
-    <Container isFocused={isFocused}>
+    <Container isFocused={isFocused} isErrored={!!error}>
       <Icon
         name={icon}
         size={20}
-        color={isFocused | isFilled ? '#ff9000' : '#666360'}
+        color={isFocused || isFilled ? '#ff9000' : '#666360'}
       />
 
       <TextInput
@@ -84,6 +85,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         defaultValue={defaultValue}
+        // eslint-disable-next-line prettier/prettier
         onChangeText={(value) => {
           inputValueRef.current.value = value;
         }}
