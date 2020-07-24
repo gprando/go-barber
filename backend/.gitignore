@@ -4,6 +4,7 @@
 
 ### Node ###
 # Logs
+ormconfig.json
 logs
 *.log
 npm-debug.log*
