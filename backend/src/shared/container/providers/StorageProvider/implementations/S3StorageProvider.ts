@@ -1,11 +1,12 @@
 import fs from 'fs';
-import path from 'path';
 import mime from 'mime';
+import path from 'path';
 import aws, { S3 } from 'aws-sdk';
-import uploadConfig from '@config/upload';
-import IStorageProvider from '../models/IStorageProvider';
 
-class DiskStorageProvider implements IStorageProvider {
+import uploadConfig from '@config/upload';
+import IStoreProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+
+export default class S3StorageProvider implements IStoreProvider {
   private client: S3;
 
   constructor() {
@@ -32,7 +33,6 @@ class DiskStorageProvider implements IStorageProvider {
         ACL: 'public-read',
         Body: fileContent,
         ContentType,
-        ContentDisposition: `ìnline; filename=${file}`,
       })
       .promise();
 
@@ -50,4 +50,3 @@ class DiskStorageProvider implements IStorageProvider {
       .promise();
   }
 }
-export default DiskStorageProvider;
