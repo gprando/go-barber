@@ -29,6 +29,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "camelcase": "off",
       "@typescript-eslint/ban-types": "off",
       "no-unused-expressions": "off",
       "no-unused-vars": "warn",
