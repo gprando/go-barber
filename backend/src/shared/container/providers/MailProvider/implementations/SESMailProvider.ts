@@ -1,12 +1,11 @@
-/* eslint-disable no-console */
-import { inject, injectable } from 'tsyringe';
-import aws from 'aws-sdk';
-
-import mailConfig from '@config/mail';
 import nodemailer, { Transporter } from 'nodemailer';
+import aws from 'aws-sdk';
+import mailConfig from '@config/mail';
+import { injectable, inject } from 'tsyringe';
+
+import IMailTemplateProvider from '@shared/container/providers/MailTemplateProvider/models/IMailTemplateProvider';
 import IMailProvider from '../models/IMailProvider';
 import ISendMailDTO from '../dtos/ISendMailDTO';
-import IMailTemplateProvider from '../../MailTemplateProvider/models/IMailTemplateProvider';
 
 @injectable()
 export default class SESMailProvider implements IMailProvider {
@@ -26,8 +25,8 @@ export default class SESMailProvider implements IMailProvider {
 
   public async sendMail({
     to,
-    subject,
     from,
+    subject,
     templateData,
   }: ISendMailDTO): Promise<void> {
     const { name, email } = mailConfig.defaults.from;
@@ -42,7 +41,6 @@ export default class SESMailProvider implements IMailProvider {
         address: to.email,
       },
       subject,
-      text: 'teste',
       html: await this.mailTemplateProvider.parse(templateData),
     });
   }

@@ -1,12 +1,11 @@
 import fs from 'fs';
-import mime from 'mime';
 import path from 'path';
+import mime from 'mime';
 import aws, { S3 } from 'aws-sdk';
-
 import uploadConfig from '@config/upload';
-import IStoreProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import IStorageProvider from '../models/IStorageProvider';
 
-export default class S3StorageProvider implements IStoreProvider {
+class DiskStorageProvider implements IStorageProvider {
   private client: S3;
 
   constructor() {
@@ -50,3 +49,5 @@ export default class S3StorageProvider implements IStoreProvider {
       .promise();
   }
 }
+
+export default DiskStorageProvider;

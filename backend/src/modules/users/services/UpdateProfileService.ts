@@ -1,9 +1,10 @@
-import { inject, injectable } from 'tsyringe';
+import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
-import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
+
+import User from '../infra/typeorm/entities/User';
 
 interface IRequest {
   user_id: string;
@@ -36,10 +37,10 @@ class UpdateProfileService {
       throw new AppError('User not found');
     }
 
-    const userWhithUpdatedEmail = await this.usersRepository.findByEmail(email);
+    const userWithUpdatedEmail = await this.usersRepository.findByEmail(email);
 
-    if (userWhithUpdatedEmail && userWhithUpdatedEmail.id !== user_id) {
-      throw new AppError('E-mail already in use');
+    if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user_id) {
+      throw new AppError('E-mail already in use.');
     }
 
     user.name = name;
@@ -47,18 +48,18 @@ class UpdateProfileService {
 
     if (password && !old_password) {
       throw new AppError(
-        'You nedd to inform the old password to set a new password',
+        'You need to inform the old password to set a new password',
       );
     }
 
     if (password && old_password) {
-      const checkOlPassword = await this.hashProvider.compareHash(
+      const checkOldPassword = await this.hashProvider.compareHash(
         old_password,
         user.password,
       );
 
-      if (!checkOlPassword) {
-        throw new AppError('Old password does not match');
+      if (!checkOldPassword) {
+        throw new AppError('Old password does not match.');
       }
 
       user.password = await this.hashProvider.generateHash(password);

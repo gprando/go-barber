@@ -14,9 +14,8 @@ export default {
 
   defaults: {
     from: {
-      // email válido que está na AWS
-      email: 'gprando@gabrielprando.tech',
-      name: 'gabriel prando',
+      email: 'antony@dominio.com.br',
+      name: 'Antony Lemos',
     },
   },
 } as IMailConfig;

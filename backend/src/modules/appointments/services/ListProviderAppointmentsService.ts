@@ -1,4 +1,4 @@
-import { inject, injectable } from 'tsyringe';
+import { injectable, inject } from 'tsyringe';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import { classToClass } from 'class-transformer';
@@ -13,7 +13,7 @@ interface IRequest {
 }
 
 @injectable()
-class ListProviderAppointmentService {
+class ListProviderAppointmentsService {
   constructor(
     @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository,
@@ -25,8 +25,8 @@ class ListProviderAppointmentService {
   public async execute({
     provider_id,
     day,
-    year,
     month,
+    year,
   }: IRequest): Promise<Appointment[]> {
     const cacheKey = `provider-appointments:${provider_id}:${year}-${month}-${day}`;
 
@@ -39,8 +39,8 @@ class ListProviderAppointmentService {
         {
           provider_id,
           day,
-          year,
           month,
+          year,
         },
       );
 
@@ -51,4 +51,4 @@ class ListProviderAppointmentService {
   }
 }
 
-export default ListProviderAppointmentService;
+export default ListProviderAppointmentsService;

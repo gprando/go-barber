@@ -83,6 +83,7 @@ const Dashboard: React.FC = () => {
       })
       .then(response => {
         setAppoitments(response.data);
+        console.log(response.data);
       });
   }, [selectedDate]);
 
@@ -146,7 +147,6 @@ const Dashboard: React.FC = () => {
       <Content>
         <Schedule>
           <h1>Horários agendados</h1>
-          {console.log(appointments)}
           <p>
             {isToday(selectedDate) && <span>Hoje</span>}
             <span>{selectedDateAsText}</span>
@@ -169,7 +169,7 @@ const Dashboard: React.FC = () => {
           <Section>
             <strong>Manhã</strong>
 
-            {/* {morningAppointments.map(appointment => (
+            {morningAppointments.map(appointment => (
               <Appointment>
                 <span>
                   <FiClock />
@@ -205,7 +205,7 @@ const Dashboard: React.FC = () => {
                   <strong>{appointment.user.name}</strong>
                 </div>
               </Appointment>
-            ))} */}
+            ))}
           </Section>
         </Schedule>
         <Calendar>
