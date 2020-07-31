@@ -1,9 +1,9 @@
 import React, {
   useEffect,
+  useState,
   useRef,
   useImperativeHandle,
   forwardRef,
-  useState,
   useCallback,
 } from 'react';
 import { TextInputProperties } from 'react-native';
@@ -14,6 +14,7 @@ import { Container, TextInput, Icon } from './styles';
 interface InputProps extends TextInputProperties {
   name: string;
   icon: string;
+  containerStyle?: {};
 }
 
 interface InputValueReference {
@@ -25,15 +26,14 @@ interface InputRef {
 }
 
 const Input: React.RefForwardingComponent<InputRef, InputProps> = (
-  { name, icon, ...rest },
+  { name, icon, containerStyle = {}, ...rest },
   ref,
 ) => {
   const inputElementRef = useRef<any>(null);
 
-  // eslint-disable-next-line object-curly-newline
-  const { fieldName, registerField, defaultValue = '', error } = useField(name);
-
+  const { registerField, defaultValue = '', fieldName, error } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
+
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
@@ -54,24 +54,15 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
   }));
 
   useEffect(() => {
-    registerField({
+    registerField<string>({
       name: fieldName,
       ref: inputValueRef.current,
       path: 'value',
-      // eslint-disable-next-line no-shadow
-      setValue(ref: any, value) {
-        inputValueRef.current.value = value;
-        inputElementRef.current.setNativeProps({ text: value });
-      },
-      clearValue() {
-        inputValueRef.current.value = '';
-        inputElementRef.current.clear();
-      },
     });
   }, [fieldName, registerField]);
 
   return (
-    <Container isFocused={isFocused} isErrored={!!error}>
+    <Container isFocused={isFocused} isErrored={!!error} style={containerStyle}>
       <Icon
         name={icon}
         size={20}
@@ -82,11 +73,10 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
         ref={inputElementRef}
         keyboardAppearance="dark"
         placeholderTextColor="#666360"
+        defaultValue={defaultValue}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
-        defaultValue={defaultValue}
-        // eslint-disable-next-line prettier/prettier
-        onChangeText={(value) => {
+        onChangeText={value => {
           inputValueRef.current.value = value;
         }}
         {...rest}
@@ -94,4 +84,5 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
     </Container>
   );
 };
+
 export default forwardRef(Input);
