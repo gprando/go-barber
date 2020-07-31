@@ -44,10 +44,10 @@ const Profile: React.FC = () => {
   const { user, updateUser } = useAuth();
   const formRef = useRef<FormHandles>(null);
 
-  const emailInputRef = useRef<TextInput>();
-  const passwordInputRef = useRef<TextInput>();
-  const oldPasswordInputRef = useRef<TextInput>();
-  const confirmPasswordInputRef = useRef<TextInput>();
+  const emailInputRef = useRef<TextInput>(null);
+  const passwordInputRef = useRef<TextInput>(null);
+  const oldPasswordInputRef = useRef<TextInput>(null);
+  const confirmPasswordInputRef = useRef<TextInput>(null);
 
   const navigation = useNavigation();
 
@@ -139,8 +139,6 @@ const Profile: React.FC = () => {
           Alert.alert('Erro ao atualizar seu avatar.');
           return;
         }
-
-        const source = { uri: response.uri };
 
         const data = new FormData();
 
